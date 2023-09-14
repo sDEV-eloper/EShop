@@ -3,10 +3,10 @@ import mongoose from 'mongoose'
 const connectDB=async()=>{
     try {
         const conn=await mongoose.connect(process.env.MONGO_URL)
-        console.log(`Connected to MongoDB database ${conn.connection.host}`.bgMagenta.white)
+        console.log(`Connected to MongoDB database ${conn.connection.host}`)
     }
     catch(err){
-console.log(err.bgRed.white)
+console.log(err)
     }
 }
 export default connectDB

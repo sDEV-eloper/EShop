@@ -10,6 +10,7 @@ export const registerController = async (req, res) => {
     if (!password) res.send({ error: "password is Required" });
     if (!phone) res.send({ error: "phone is Required" });
     if (!address) res.send({ error: "address is Required" });
+
     //check user
     const existingUser = await userModel.findOne({ email });
     if (existingUser) {
@@ -21,7 +22,7 @@ export const registerController = async (req, res) => {
 
     //register user
     const hashedPassword = await hashPassword(password);
-    //save
+    //save in monogoDB
     const user = await new userModel({
       name,
       email,
@@ -45,7 +46,7 @@ export const registerController = async (req, res) => {
 };
 
 //POST
-
+//Login
 export const loginController = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -61,7 +62,7 @@ export const loginController = async (req, res) => {
     if (!user) {
       return res.status(404).send({
         success: false,
-        message: "Email not se ",
+        message: "Email not found ",
       });
     }
     const match = await comparePassword(password, user.password);
@@ -98,3 +99,9 @@ res.status(200).send({
     });
   }
 };
+
+//test controller
+export const testController=(req, res)=>{
+ res.send("Protected route")
+}
+ 
